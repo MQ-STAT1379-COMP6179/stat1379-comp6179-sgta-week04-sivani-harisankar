@@ -552,7 +552,7 @@ filter(babynames, name == "Khaleesi")
 filter(babynames, name == "Sea" | name == "Anemone")
 filter(babynames, prop > 0.08)
 filter(babynames, year == 1880, (n == 5 | n == 6))
-filter(babynames, name %in% c("Acura", "Lexus", "Yugo"))
+filter(babynames, name %in% c("Acura", "Lexus", "Yugo")) #names in this vector
 
 # arrange() - Sort rows
 arrange(babynames, n)
@@ -587,6 +587,9 @@ babynames |>
   select(name, year, n) |>
   arrange(desc(n)) |>
   head(10)
+
+#placeholder is needed because f(x,y) is different to f(y,x)
+# x |> f(y, _)
 ```
 
 
@@ -630,6 +633,8 @@ babynames |>
   summarise(total = sum(n), .groups = "drop") |>
   arrange(desc(total)) |>
   head(10)
+
+#groups = drop means it will drop that column from your table
 ```
 
 ## Creating New Variables  
@@ -698,10 +703,14 @@ Which name was the most popular for a single gender in a single year? Compare ar
 
 ```{r popular-names-student, eval=FALSE}
 # Your code to find highest proportion:
-
+babynames |>
+  arrange(desc(prop)) |>
+  head(5)
 
 # Your code to find highest count:
-
+babynames |>
+  arrange(desc(n)) |>
+  head(5)
 
 ```
 
@@ -720,7 +729,10 @@ Write a pipeline that will:
 
 ```{r girls-2017-student, eval=FALSE}
 # Your pipeline here:
-
+babynames |> 
+  filter(sex == "F", year == "2017") |> 
+  select(name, n) |> 
+  arrange(desc(n))
 
 ```
 
@@ -779,6 +791,33 @@ table4b_long <- table4b |>
     values_to = "population"
   )
 table4b_long
+
+
+table2new <- table2 |> 
+  pivot_wider(
+    names_from = type,
+    values_from = count
+  )
+table2new
+
+table2new |> 
+  mutate(
+    rate = (cases / population) * 10000
+  ) 
+  #select(country, year, rate)
+
+table3new <- table3 |> 
+  separate_wider_delim(
+    cols = rate,
+    delim = "/",
+    names = c("cases", "population")
+  ) |> 
+  mutate(
+    cases = as.numeric(cases),
+    population = as.numeric(population),
+    rate = cases / population * 10000
+  )
+table3new
 ```
 
 
@@ -798,6 +837,14 @@ cholesterol_data
 
 # Your tasks:
 # 1. Convert to long format
+cholesterol_data |>
+  pivot_longer(
+    cols = c(`oat_bran_free`, `oat_bran`),
+    names_to = "diet", 
+    values_to = "cholestrol"
+  )
+table4b_long
+
 # 2. Calculate n, mean, and standard deviation for each diet group
 ```
 
