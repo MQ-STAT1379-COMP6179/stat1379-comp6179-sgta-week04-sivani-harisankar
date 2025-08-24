@@ -1,7 +1,7 @@
 ---
 title: "STAT1379/COMP6179: ST4DS"
 subtitle: "Week 4 SGTA: Student template"
-author: "Your Name Here"
+author: "Sivani Harisankar"
 execute:
   echo: true
   eval: true
@@ -28,22 +28,23 @@ Load the `tidyverse` library and explore different R data types by running the c
 
 ```{r atomic-vectors-doubles, eval=FALSE}
 library(tidyverse)
+#predictions commented
 x <- c(1, 2, 3, 4, 5, 6)
 x
-typeof(x)
-class(x)
-str(x)
+typeof(x) #double
+class(x) #vector x => numeric
+str(x) #1 2 3 4 5 6 => num [1:6] 1 2 3 4 5 6 
 
 x <- 1:6
 x
-typeof(x)
-class(x)
-str(x)
+typeof(x) #integer
+class(x) #integer
+str(x) # int [1:6] 1 2 3 4 5 6
 
 x <- seq(1, 6, len = 6)
 x
-typeof(x)
-class(x)
+typeof(x) #doble
+class(x) #numeric
 str(x)
 ```
 
@@ -61,20 +62,20 @@ str(x)
 ```{r atomic-vectors-integers, eval=FALSE}
 x <- c(1L, 2L, 3L, 4L, 5L, 6L)
 x
-typeof(x)
-class(x)
+typeof(x) #int
+class(x) #int
 str(x)
 
 x <- c(1, 2, 3, 4, 5L, 6L)
-x
-typeof(x)
-class(x)
+x 
+typeof(x) #double
+class(x) #numeric
 str(x)
 
 x <- as.integer(x)
 x
-typeof(x)
-class(x)
+typeof(x) #int
+class(x) #int
 str(x)
 ```
 
@@ -84,7 +85,8 @@ str(x)
 - What does the `L` suffix do?
 
 *Write your thoughts here:*
-
+-it returns a double
+- creatse an integer value
 
 
 #### Atomic Vectors - Characters  
@@ -92,25 +94,25 @@ str(x)
 ```{r atomic-vectors-characters, eval=FALSE}
 x <- "This"
 x
-typeof(x)
-class(x)
+typeof(x) #chracter
+class(x) #character
 str(x)
 
 x <- c("This", "unit", "is", "great.", "Do", "you", "agree?")
 x
-typeof(x)
-class(x)
-str(x)
+typeof(x) #character
+class(x) #character
+str(x) #charcter
 
 x <- paste("This", "unit", "is", "great.", "Do", "you", "agree?", sep = "::")
 x
-typeof(x)
-class(x)
+typeof(x) #character
+class(x) #character
 str(x)
 
 x <- paste("This", "unit", "is", "great.", "Do", "you", "agree?", sep = " ")
 x
-typeof(x)
+typeof(x) #character
 class(x)
 str(x)
 
@@ -138,13 +140,13 @@ glue::glue("This unit is great.
 ```{r atomic-vectors-logicals, eval=FALSE, error=TRUE}
 1 > 0
 1 < 0
-1 <- 1  # This will cause an error - why?
+1 <- 1  # This will cause an error - why? #lhs to assignment
 1 == 1
 
 x <- c(TRUE, TRUE, FALSE)
 x
-typeof(x)
-class(x)
+typeof(x) #logical
+class(x) #logica
 str(x)
 
 x <- c(T, T, F)
@@ -155,9 +157,9 @@ str(x)
 
 x <- 1 > 0
 x
-typeof(x)
-class(x)
-str(x)
+typeof(x) #logical
+class(x) #logical
+str(x) #logi TRUE
 
 x <- c(1 > 0, 5 > 0, 5 > 10)
 x
@@ -171,6 +173,8 @@ str(x)
 - Explain why `1 <- 1` causes an error
 - What's the difference between `=` and `==`?
 
+- == is comparison while = is equals
+
 *Write your explanation here:*
 
 
@@ -180,16 +184,16 @@ str(x)
 ```{r factors, eval=FALSE}
 x <- c("spring", "spring", "winter", "spring", "winter", "spring", "spring")
 x
-typeof(x)
+typeof(x) #character
 class(x)
 str(x)
-attributes(x)
+attributes(x) #NULL
 
 x <- factor(c("spring", "spring", "winter", "spring", "winter", "spring", "spring"))
 x
-typeof(x)
-class(x)
-str(x)
+typeof(x) #integer
+class(x) #factor
+str(x) #Factor w/ 2 levels "spring","winter": 1 1 2 1 2 1 1
 attributes(x)
 table(x)
 as.character(x)
@@ -200,7 +204,7 @@ as.character(x)
 - How are factors different from character vectors?
 
 *Write your thoughts here:*
-
+factors can store strings as integers. 
 
 
 ### Working with Matrices and Arrays  
@@ -215,7 +219,7 @@ m
 
 m <- matrix(1:6, nrow = 2, byrow = TRUE)
 str(m)
-class(m)
+class(m) #matrix #array
 m
 ```
 
@@ -226,14 +230,14 @@ m
 
 *Write your answer here:*
 
-
+One is filled by rows and the other by columns. Default filling is by rows.
 
 #### Arrays  
 
 ```{r arrays, eval=FALSE}
 x <- array(c(1:5, 11:15), dim = c(5, 5))
 str(x)
-class(x)
+class(x) #mtrix #array
 x
 # R recycles values: we gave 10 values, but needed 25 (5*5)
 
@@ -260,7 +264,7 @@ x
 
 *Write your explanation here:*
 
-
+The provided values get recycled. 3D arrays are seen as two subsets of arrays
 
 ### Working with Lists  
 
@@ -287,7 +291,7 @@ x
 - What are the advantages of named lists?
 
 *Write your analysis here:*
-
+Lists can store different types of data but vectors can only store numeric values.
 
 
 ### Working with Data Frames and Tibbles  
@@ -301,8 +305,8 @@ x <- data.frame(
   temperature = c(14, 17, 26, 25)
 )
 str(x)
-typeof(x)
-class(x)
+typeof(x) #list
+class(x) #df
 x
 
 # Modern tibble
@@ -313,8 +317,8 @@ x <- tibble(
   temperature = c(14, 17, 26, 25)
 )
 str(x)
-typeof(x)
-class(x)
+typeof(x) #list
+class(x) #tbl #df
 x
 
 # Tribble (transposed tibble for readability)
@@ -326,8 +330,8 @@ x <- tribble(
   "spring", "Apr", "Newcastle", 25
 )
 glimpse(x)
-typeof(x)
-class(x)
+typeof(x) #list
+class(x) #tbl #df
 x
 ```
 
@@ -338,7 +342,7 @@ x
 
 *Write your thoughts here:*
 
-
+Tibbles have columns with headings and at the top it gives the number of rows and columns
 
 ## Loading and Saving Data  
 
